@@ -24,8 +24,7 @@ public class Foo {
         System.out.println(get10);
 
         Predicate<String> startWithJinwoo = (s) -> s.startsWith("jinwoo");
-
-
+        Predicate<Integer> isEven = (i) -> i%2 == 0;
 
     }
 }
