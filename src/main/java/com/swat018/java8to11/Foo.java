@@ -1,11 +1,14 @@
 package com.swat018.java8to11;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.*;
 
 public class Foo {
 
     public static void main(String[] args) {
-//        Function<Integer, Integer> plus10 = (i) -> i + 10;
+        // 3. 자바에서 제공하는 함수형 인터페이
+/*//        Function<Integer, Integer> plus10 = (i) -> i + 10;
         UnaryOperator<Integer> plus10 = (i) -> i + 10;
         UnaryOperator<Integer> multiply2 = (i) -> i * 2;
 
@@ -20,7 +23,7 @@ public class Foo {
         Consumer<Integer> printT = (i) -> System.out.println(i);
         printT.accept(10);
 
-        Supplier<Integer> get10 = () -> 10;
+        Supplier<Integer> get10 = () -> 10;스
         System.out.println(get10);
 
         Predicate<String> startWithJinwoo = (s) -> s.startsWith("jinwoo");
@@ -28,12 +31,36 @@ public class Foo {
 
         BinaryOperator<Integer> sum = (a,b) -> a + b;
 
+        // 4. 람다 표현식
         Foo foo = new Foo();
-        foo.run();
+        foo.run();*/
 
+        // 5. 메소드 레퍼런스
+        Greeting greeting = new Greeting();
+        UnaryOperator<String> hi = Greeting::hi;
+        UnaryOperator<String> hello = greeting::hello;
+
+        System.out.println(hello.apply("jinwoo"));
+
+        Function<String, Greeting> jinwooGreeting
+                = Greeting::new;
+        Greeting jinwoo = jinwooGreeting.apply("jinwoo");
+        System.out.println(jinwoo.getName());
+
+        Supplier<Greeting> newGreeting = Greeting::new;
+
+        String[] names = {"keesun", "whiteshop", "toby"};
+        /*Arrays.sort(names, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return 0;
+            }
+        });*/
+        Arrays.sort(names, String::compareToIgnoreCase);
+        System.out.println(Arrays.toString(names));
     }
 
-    private void run() {
+/*    private void run() {
         int baseNumber = 10;
 
         // 로컬 클래스
@@ -58,5 +85,5 @@ public class Foo {
         };
 
         printInt.accept(10);
-    }
+    }*/
 }
