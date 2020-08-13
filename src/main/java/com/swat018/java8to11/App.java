@@ -64,6 +64,7 @@ public class App {
         foo.printName();
         foo.printNameUpperCase();
 
+        Foo.printAnything();
     }
 
 /*    private void run() {

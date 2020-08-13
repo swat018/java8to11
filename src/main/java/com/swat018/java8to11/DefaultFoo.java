@@ -1,11 +1,16 @@
 package com.swat018.java8to11;
 
-public class DefaultFoo implements Foo {
+public class DefaultFoo implements Foo, Bar {
 
     String name;
 
     public DefaultFoo(String name) {
         this.name = name;
+    }
+
+    @Override
+    public void printNameUpperCase() {
+        System.out.println(this.name.toUpperCase());
     }
 
     @Override
