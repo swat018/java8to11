@@ -1,7 +1,6 @@
 package com.swat018.java8to11;
 
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 import java.util.function.*;
 
 public class App {
@@ -60,11 +59,43 @@ public class App {
         System.out.println(Arrays.toString(names));*/
 
         // 6. 인터페이스 기본 메소드와 스태틱 메소드
-        Foo foo = new DefaultFoo("jinwoo");
+/*        Foo foo = new DefaultFoo("jinwoo");
         foo.printName();
         foo.printNameUpperCase();
 
-        Foo.printAnything();
+        Foo.printAnything();*/
+
+        // 7. 자바 8 API의 기본 메소드와 스태틱 메소드
+        List<String> name = new ArrayList<>();
+        name.add("keesun");
+        name.add("whiteship");
+        name.add("tody");
+        name.add("foo");
+
+//        name.forEach(System.out::println);
+
+/*        Spliterator<String> spliterator = name.spliterator();
+        Spliterator<String> spliterator1 = spliterator.trySplit();
+        while (spliterator.tryAdvance(System.out::println));
+        System.out.println("================");
+        while (spliterator1.tryAdvance(System.out::println));*/
+
+/*        long k = name.stream().map(String::toUpperCase)
+                .filter(s -> s.startsWith("K"))
+                .count();
+        System.out.println(k);*/
+
+//        name.removeIf(s -> s.startsWith("k"));
+
+/*
+        Comparator<String> compareToIgnoreCase = String::compareToIgnoreCase;
+        name.sort(compareToIgnoreCase.reversed());
+*/
+
+
+        name.forEach(System.out::println);
+
+
     }
 
 /*    private void run() {
