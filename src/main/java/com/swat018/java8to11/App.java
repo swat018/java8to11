@@ -6,7 +6,7 @@ import java.util.function.*;
 public class App {
 
     public static void main(String[] args) {
-        // 3. 자바에서 제공하는 함수형 인터페이
+        // 3. 자바에서 제공하는 함수형 인터페이스
 /*//        Function<Integer, Integer> plus10 = (i) -> i + 10;
         UnaryOperator<Integer> plus10 = (i) -> i + 10;
         UnaryOperator<Integer> multiply2 = (i) -> i * 2;
@@ -22,7 +22,7 @@ public class App {
         Consumer<Integer> printT = (i) -> System.out.println(i);
         printT.accept(10);
 
-        Supplier<Integer> get10 = () -> 10;스
+        Supplier<Integer> get10 = () -> 10;
         System.out.println(get10);
 
         Predicate<String> startWithJinwoo = (s) -> s.startsWith("jinwoo");
@@ -91,7 +91,6 @@ public class App {
         Comparator<String> compareToIgnoreCase = String::compareToIgnoreCase;
         name.sort(compareToIgnoreCase.reversed());
 */
-
 
         name.forEach(System.out::println);
 
