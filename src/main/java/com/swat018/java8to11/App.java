@@ -2,6 +2,8 @@ package com.swat018.java8to11;
 
 import java.util.*;
 import java.util.function.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class App {
 
@@ -66,11 +68,11 @@ public class App {
         Foo.printAnything();*/
 
         // 7. 자바 8 API의 기본 메소드와 스태틱 메소드
-        List<String> name = new ArrayList<>();
-        name.add("keesun");
-        name.add("whiteship");
-        name.add("tody");
-        name.add("foo");
+        List<String> names = new ArrayList<>();
+        names.add("keesun");
+        names.add("whiteship");
+        names.add("tody");
+        names.add("foo");
 
 //        name.forEach(System.out::println);
 
@@ -91,10 +93,22 @@ public class App {
         Comparator<String> compareToIgnoreCase = String::compareToIgnoreCase;
         name.sort(compareToIgnoreCase.reversed());
 */
+//        names.forEach(System.out::println);
 
-        name.forEach(System.out::println);
+        // 8. Stream 소개
+/*        List<String> collect = names.stream().map((s) -> {
+            System.out.println(s);
+            return s.toUpperCase();
+        }).collect(Collectors.toList());
+        collect.forEach(System.out::println);
+        System.out.println("==================");
+        names.forEach(System.out::println);*/
 
-
+        List<String> collect = names.parallelStream().map((s) -> {
+            System.out.println(s + " " + Thread.currentThread().getName());
+            return s.toUpperCase();
+        }).collect(Collectors.toList());
+        collect.forEach(System.out::println);
     }
 
 /*    private void run() {
