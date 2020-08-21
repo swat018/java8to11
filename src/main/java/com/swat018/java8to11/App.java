@@ -111,7 +111,7 @@ public class App {
         collect.forEach(System.out::println);*/
 
         // 9. Stream API
-        List<OnlineClass> springClasses = new ArrayList<>();
+     /*   List<OnlineClass> springClasses = new ArrayList<>();
         springClasses.add(new OnlineClass(1, "spring boot", true));
         springClasses.add(new OnlineClass(2, "spring data jpa", true));
         springClasses.add(new OnlineClass(3, "spring mvc", false));
@@ -163,7 +163,7 @@ public class App {
                 .filter(oc -> oc.getTitle().contains("spring"))
                 .map(OnlineClass::getTitle)
                 .collect(Collectors.toList());
-        spring.forEach(System.out::println);
+        spring.forEach(System.out::println);*/
         
     }
 
