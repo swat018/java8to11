@@ -1,5 +1,6 @@
 package com.swat018.java8to11;
 
+import java.time.Duration;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
@@ -164,7 +165,23 @@ public class App {
                 .map(OnlineClass::getTitle)
                 .collect(Collectors.toList());
         spring.forEach(System.out::println);*/
-        
+
+        // 10. Optional 소개
+        List<OnlineClass> springClasses = new ArrayList<>();
+        springClasses.add(new OnlineClass(1, "spring boot", true));
+        springClasses.add(new OnlineClass(2, "spring data jpa", true));
+        springClasses.add(new OnlineClass(3, "spring mvc", false));
+        springClasses.add(new OnlineClass(4, "spring core", false));
+        springClasses.add(new OnlineClass(5, "rest api development", false));
+
+/*        OnlineClass spring_boot = new OnlineClass(1, "spring boot", true);
+        Progress progress = spring_boot.getProgress();
+        if (progress != null) {
+            System.out.println(progress.getStudyDuration());
+        }*/
+
+
+
     }
 
 /*    private void run() {

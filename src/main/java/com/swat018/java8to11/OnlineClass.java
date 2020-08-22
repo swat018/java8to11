@@ -1,11 +1,15 @@
 package com.swat018.java8to11;
 
+import java.util.Optional;
+
 public class OnlineClass {
     private Integer id;
 
     private String title;
 
     private boolean closed;
+
+    public Progress progress;
 
     public OnlineClass(Integer id, String title, boolean closed) {
         this.id = id;
@@ -35,5 +39,17 @@ public class OnlineClass {
 
     public void setClosed(boolean closed) {
         this.closed = closed;
+    }
+
+    public Optional<Progress> getProgress() {
+/*        if (this.progress == null) {
+            throw new IllegalStateException();
+        }*/
+//        return Optional.ofNullable(progress);
+        return Optional.empty();
+    }
+
+    public void setProgress(Progress progress) {
+        this.progress = progress;
     }
 }
