@@ -113,10 +113,10 @@ public class App {
 
         // 9. Stream API
      /*   List<OnlineClass> springClasses = new ArrayList<>();
-        springClasses.add(new OnlineClass(1, "spring boot", true));
-        springClasses.add(new OnlineClass(2, "spring data jpa", true));
-        springClasses.add(new OnlineClass(3, "spring mvc", false));
-        springClasses.add(new OnlineClass(4, "spring core", false));
+        springClasses.add(new OnlineClass(1, "optional boot", true));
+        springClasses.add(new OnlineClass(2, "optional data jpa", true));
+        springClasses.add(new OnlineClass(3, "optional mvc", false));
+        springClasses.add(new OnlineClass(4, "optional core", false));
         springClasses.add(new OnlineClass(5, "rest api development", false));
 
         List<OnlineClass> javaClasses = new ArrayList<>();
@@ -128,9 +128,9 @@ public class App {
         keesunEvents.add(springClasses);
         keesunEvents.add(javaClasses);
 
-        System.out.println("spring 으로 시작하는 수업");
+        System.out.println("optional 으로 시작하는 수업");
         springClasses.stream()
-                .filter(oc -> oc.getTitle().startsWith("spring"))
+                .filter(oc -> oc.getTitle().startsWith("optional"))
                 .forEach(oc-> System.out.println(oc.getId()));
 
         System.out.println("close 되지 않은 수업");
@@ -160,11 +160,11 @@ public class App {
         System.out.println(test);
 
         System.out.println("스프링 수업 중에 제목에 spring이 들어간 제목만 모아서 List로 만들기");
-        List<String> spring = springClasses.stream()
-                .filter(oc -> oc.getTitle().contains("spring"))
+        List<String> optional = springClasses.stream()
+                .filter(oc -> oc.getTitle().contains("optional"))
                 .map(OnlineClass::getTitle)
                 .collect(Collectors.toList());
-        spring.forEach(System.out::println);*/
+        optional.forEach(System.out::println);*/
 
         // 10. Optional 소개
         List<OnlineClass> springClasses = new ArrayList<>();
@@ -174,14 +174,44 @@ public class App {
         springClasses.add(new OnlineClass(4, "spring core", false));
         springClasses.add(new OnlineClass(5, "rest api development", false));
 
-/*        OnlineClass spring_boot = new OnlineClass(1, "spring boot", true);
+/*        OnlineClass spring_boot = new OnlineClass(1, "optional boot", true);
         Progress progress = spring_boot.getProgress();
         if (progress != null) {
             System.out.println(progress.getStudyDuration());
         }*/
 
+        // 11. Optional API
+        Optional<OnlineClass> optional = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("spring"))
+                .findFirst();
+
+/*        boolean present = optional.isPresent();
+        System.out.println(present);
+
+        OnlineClass  onlineClass= optional.get();
+        System.out.println(onlineClass.getTitle());*/
+
+/*        OnlineClass onlineClass = optional.orElseGet(App::createNewClass);
+        System.out.println(onlineClass.getTitle());*/
+
+/*        OnlineClass onlineClass = optional.orElseThrow(IllegalStateException::new);
+        System.out.println(onlineClass.getTitle());*/
+
+/*        Optional<OnlineClass> onlineClass = optional
+                .filter(OnlineClass::isClosed);
+//        System.out.println(onlineClass.isEmpty());
+        System.out.println(onlineClass.isPresent());*/
+
+        Optional<Progress> progress = optional.flatMap(OnlineClass::getProgress);
+        Optional<Optional<Progress>> progress1 = optional.map(OnlineClass::getProgress);
+        Optional<Progress> progress2 = progress1.orElseThrow();
 
 
+    }
+
+    private static OnlineClass createNewClass() {
+        System.out.println("creating new online class");
+        return new OnlineClass(10, "New class", false);
     }
 
 /*    private void run() {
