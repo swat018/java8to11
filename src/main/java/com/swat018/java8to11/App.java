@@ -1,5 +1,6 @@
 package com.swat018.java8to11;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
 import java.util.function.*;
@@ -8,7 +9,7 @@ import java.util.stream.Stream;
 
 public class App {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // 3. 자바에서 제공하는 함수형 인터페이스
 /*//        Function<Integer, Integer> plus10 = (i) -> i + 10;
         UnaryOperator<Integer> plus10 = (i) -> i + 10;
@@ -167,12 +168,12 @@ public class App {
         optional.forEach(System.out::println);*/
 
         // 10. Optional 소개
-        List<OnlineClass> springClasses = new ArrayList<>();
+/*        List<OnlineClass> springClasses = new ArrayList<>();
         springClasses.add(new OnlineClass(1, "spring boot", true));
         springClasses.add(new OnlineClass(2, "spring data jpa", true));
         springClasses.add(new OnlineClass(3, "spring mvc", false));
         springClasses.add(new OnlineClass(4, "spring core", false));
-        springClasses.add(new OnlineClass(5, "rest api development", false));
+        springClasses.add(new OnlineClass(5, "rest api development", false));*/
 
 /*        OnlineClass spring_boot = new OnlineClass(1, "optional boot", true);
         Progress progress = spring_boot.getProgress();
@@ -181,31 +182,51 @@ public class App {
         }*/
 
         // 11. Optional API
-        Optional<OnlineClass> optional = springClasses.stream()
+/*        Optional<OnlineClass> optional = springClasses.stream()
                 .filter(oc -> oc.getTitle().startsWith("spring"))
                 .findFirst();
 
-/*        boolean present = optional.isPresent();
+*//*        boolean present = optional.isPresent();
         System.out.println(present);
 
         OnlineClass  onlineClass= optional.get();
-        System.out.println(onlineClass.getTitle());*/
+        System.out.println(onlineClass.getTitle());*//*
 
-/*        OnlineClass onlineClass = optional.orElseGet(App::createNewClass);
-        System.out.println(onlineClass.getTitle());*/
+*//*        OnlineClass onlineClass = optional.orElseGet(App::createNewClass);
+        System.out.println(onlineClass.getTitle());*//*
 
-/*        OnlineClass onlineClass = optional.orElseThrow(IllegalStateException::new);
-        System.out.println(onlineClass.getTitle());*/
+*//*        OnlineClass onlineClass = optional.orElseThrow(IllegalStateException::new);
+        System.out.println(onlineClass.getTitle());*//*
 
-/*        Optional<OnlineClass> onlineClass = optional
+*//*        Optional<OnlineClass> onlineClass = optional
                 .filter(OnlineClass::isClosed);
 //        System.out.println(onlineClass.isEmpty());
-        System.out.println(onlineClass.isPresent());*/
+        System.out.println(onlineClass.isPresent());*//*
 
         Optional<Progress> progress = optional.flatMap(OnlineClass::getProgress);
         Optional<Optional<Progress>> progress1 = optional.map(OnlineClass::getProgress);
-        Optional<Progress> progress2 = progress1.orElseThrow();
+        Optional<Progress> progress2 = progress1.orElseThrow();*/
 
+        // 12. Date와 Time API 소개
+/*        Date date = new Date();
+        long time = date.getTime();
+        System.out.println(date);
+        System.out.println(time);
+
+        Thread.sleep(1000 * 3);
+        Date  after3Seconds = new Date();
+        System.out.println(after3Seconds);
+        after3Seconds.setTime(time);
+        System.out.println(after3Seconds);*/
+
+/*        Calendar jinwooBirthDay = new GregorianCalendar(1984, 4, 18);
+        System.out.println(jinwooBirthDay.getTime());
+        jinwooBirthDay.add(Calendar.DAY_OF_YEAR, 1);
+        System.out.println(jinwooBirthDay.getTime());*/
+
+        Date date = new Date();
+        long time = date.getTime();
+        System.out.println(time);
 
     }
 
