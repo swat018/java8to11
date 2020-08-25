@@ -2,6 +2,9 @@ package com.swat018.java8to11;
 
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
@@ -223,10 +226,19 @@ public class App {
         System.out.println(jinwooBirthDay.getTime());
         jinwooBirthDay.add(Calendar.DAY_OF_YEAR, 1);
         System.out.println(jinwooBirthDay.getTime());*/
-
+/*
         Date date = new Date();
         long time = date.getTime();
-        System.out.println(time);
+        System.out.println(time);*/
+
+        // 13. Date/Time API
+        Instant instant = Instant.now();
+        System.out.println(instant);        // 기준시 UTC, GMT
+
+        ZoneId zone = ZoneId.systemDefault();
+        System.out.println(zone);
+        ZonedDateTime zonedDateTime = instant.atZone(zone);
+        System.out.println();
 
     }
 
