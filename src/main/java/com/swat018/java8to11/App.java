@@ -1,10 +1,8 @@
 package com.swat018.java8to11;
 
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
@@ -232,13 +230,33 @@ public class App {
         System.out.println(time);*/
 
         // 13. Date/Time API
-        Instant instant = Instant.now();
-        System.out.println(instant);        // 기준시 UTC, GMT
+/*        Instant instant = Instant.now();
+        System.out.println(instant);                            // 기준시 UTC, GMT
+        System.out.println(instant.atZone(ZoneId.of("UTC")));   // 기준시 UTC, GMT
 
         ZoneId zone = ZoneId.systemDefault();
         System.out.println(zone);
         ZonedDateTime zonedDateTime = instant.atZone(zone);
-        System.out.println();
+        System.out.println(zonedDateTime);*/
+
+/*        LocalDateTime now = LocalDateTime.now();
+        System.out.println(now);
+        LocalDateTime birthDay = LocalDateTime.of(1984, Month.MAY, 18, 0, 0, 0);
+        ZonedDateTime nowInKorea = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+        System.out.println(nowInKorea);
+
+        Instant nowInstant = Instant.now();
+        ZonedDateTime zonedDateTime = nowInstant.atZone(ZoneId.of("Asia/Seoul"));
+        System.out.println(zonedDateTime);*/
+
+        LocalDate today = LocalDate.now();
+        LocalDate thisYearBrithday = LocalDate.of(2020,Month.MAY,18);
+
+        Period period = Period.between(today, thisYearBrithday);
+        System.out.println(period.getDays());
+
+        Period until = today.until(thisYearBrithday);
+        System.out.println(period.get(ChronoUnit.DAYS));
 
     }
 
