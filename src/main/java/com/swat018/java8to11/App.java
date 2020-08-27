@@ -2,6 +2,7 @@ package com.swat018.java8to11;
 
 import java.text.SimpleDateFormat;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.*;
@@ -249,15 +250,30 @@ public class App {
         ZonedDateTime zonedDateTime = nowInstant.atZone(ZoneId.of("Asia/Seoul"));
         System.out.println(zonedDateTime);*/
 
-        LocalDate today = LocalDate.now();
-        LocalDate thisYearBrithday = LocalDate.of(2020,Month.MAY,18);
+/*        Instant now = Instant.now();
+        Instant plus = now.plus(10, ChronoUnit.SECONDS);
+        Duration between = Duration.between(now, plus);
+        System.out.println(between.getSeconds());*/
+        Date date = new Date();
+        Instant instant = date.toInstant();
+        Date newDate = Date.from(instant);
 
-        Period period = Period.between(today, thisYearBrithday);
-        System.out.println(period.getDays());
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
 
-        Period until = today.until(thisYearBrithday);
-        System.out.println(period.get(ChronoUnit.DAYS));
+        ZonedDateTime dateTime = gregorianCalendar.toInstant().atZone(ZoneId.systemDefault());
+        GregorianCalendar from = GregorianCalendar.from(dateTime);
 
+        ZoneId zoneId = TimeZone.getTimeZone("PST").toZoneId();
+        TimeZone timeZone = TimeZone.getTimeZone(zoneId);
+
+        LocalDateTime now = LocalDateTime.now();
+        now.plus(10, ChronoUnit.DAYS);
+
+        DateTimeFormatter MMddyyyy = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        System.out.println(now.format(MMddyyyy));
+
+       LocalDate parse = LocalDate.parse("05/18/1984", MMddyyyy);
+        System.out.println(parse);
     }
 
     private static OnlineClass createNewClass() {
@@ -273,7 +289,7 @@ public class App {
             void pringBaseNumber() {
                 int baseNumber = 11;
                 System.out.println(baseNumber);
-            }
+
         }
 
         // 익명 클래스
