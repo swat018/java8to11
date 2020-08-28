@@ -5,6 +5,10 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -257,16 +261,16 @@ public class App {
 
         // 14. 자바 Concurrent 프로그래밍 소개
 /*        MyThread myThread = new MyThread();
-        myThread.start();*/
+        myThread.start();*//*
 
         Thread thread = new Thread(() -> {
-            /*try {
+            *//*try {
                 Thread.sleep(1000L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }*/
+            }*//*
 
-/*            while(true) {
+*//*            while(true) {
                 System.out.println("Thread: " + Thread.currentThread().getName());
                 try {
                     Thread.sleep(1000L);
@@ -274,7 +278,7 @@ public class App {
                     System.out.println("exit!");
                    return;
                 }
-            }*/
+            }*//*
 
             System.out.println("Thread: " + Thread.currentThread().getName());
             try {
@@ -286,11 +290,40 @@ public class App {
         thread.start();
 
         System.out.println("Hello: " + Thread.currentThread().getName());
-/*        Thread.sleep(3000L);
-        thread.interrupt();*/
+*//*        Thread.sleep(3000L);
+        thread.interrupt();*//*
         thread.join();
         System.out.println(thread + " is finished");
+        */
 
+        // 15. Executors
+/*        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            System.out.println("Thrad " + Thread.currentThread().getName());
+        });
+
+//        executorService.shutdownNow();
+            executorService.shutdown();*/
+
+/*        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.submit(getRunnable("Hello"));
+        executorService.submit(getRunnable("Jinwoo"));
+        executorService.submit(getRunnable("The"));
+        executorService.submit(getRunnable("Java"));
+        executorService.submit(getRunnable("Thread"));
+
+        executorService.shutdown();*/
+
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.schedule(getRunnable("Hello"), 3, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(getRunnable("World"),1, 2, TimeUnit.SECONDS);
+
+//        executorService.shutdown();
+
+    }
+
+    private static Runnable getRunnable(String message) {
+        return () -> System.out.println(message + Thread.currentThread().getName());
     }
 
     static class MyThread extends Thread {
