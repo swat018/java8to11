@@ -254,26 +254,50 @@ public class App {
         Instant plus = now.plus(10, ChronoUnit.SECONDS);
         Duration between = Duration.between(now, plus);
         System.out.println(between.getSeconds());*/
-        Date date = new Date();
-        Instant instant = date.toInstant();
-        Date newDate = Date.from(instant);
 
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        // 14. 자바 Concurrent 프로그래밍 소개
+/*        MyThread myThread = new MyThread();
+        myThread.start();*/
 
-        ZonedDateTime dateTime = gregorianCalendar.toInstant().atZone(ZoneId.systemDefault());
-        GregorianCalendar from = GregorianCalendar.from(dateTime);
+        Thread thread = new Thread(() -> {
+            /*try {
+                Thread.sleep(1000L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
 
-        ZoneId zoneId = TimeZone.getTimeZone("PST").toZoneId();
-        TimeZone timeZone = TimeZone.getTimeZone(zoneId);
+/*            while(true) {
+                System.out.println("Thread: " + Thread.currentThread().getName());
+                try {
+                    Thread.sleep(1000L);
+                } catch (InterruptedException e) {
+                    System.out.println("exit!");
+                   return;
+                }
+            }*/
 
-        LocalDateTime now = LocalDateTime.now();
-        now.plus(10, ChronoUnit.DAYS);
+            System.out.println("Thread: " + Thread.currentThread().getName());
+            try {
+                Thread.sleep(3000L);
+            } catch (InterruptedException e) {
+                throw new IllegalStateException(e);
+            }
+        });
+        thread.start();
 
-        DateTimeFormatter MMddyyyy = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        System.out.println(now.format(MMddyyyy));
+        System.out.println("Hello: " + Thread.currentThread().getName());
+/*        Thread.sleep(3000L);
+        thread.interrupt();*/
+        thread.join();
+        System.out.println(thread + " is finished");
 
-       LocalDate parse = LocalDate.parse("05/18/1984", MMddyyyy);
-        System.out.println(parse);
+    }
+
+    static class MyThread extends Thread {
+        @Override
+        public void run() {
+            System.out.println("Thread: " + Thread.currentThread().getName());
+        }
     }
 
     private static OnlineClass createNewClass() {
