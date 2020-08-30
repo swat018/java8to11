@@ -5,17 +5,14 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class App {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         // 3. 자바에서 제공하는 함수형 인터페이스
 /*//        Function<Integer, Integer> plus10 = (i) -> i + 10;
         UnaryOperator<Integer> plus10 = (i) -> i + 10;
@@ -298,7 +295,7 @@ public class App {
 
         // 15. Executors
 /*        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.submit(() -> {
+        executorService.helloFuture(() -> {
             System.out.println("Thrad " + Thread.currentThread().getName());
         });
 
@@ -306,19 +303,57 @@ public class App {
             executorService.shutdown();*/
 
 /*        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        executorService.submit(getRunnable("Hello"));
-        executorService.submit(getRunnable("Jinwoo"));
-        executorService.submit(getRunnable("The"));
-        executorService.submit(getRunnable("Java"));
-        executorService.submit(getRunnable("Thread"));
+        executorService.helloFuture(getRunnable("Hello"));
+        executorService.helloFuture(getRunnable("Jinwoo"));
+        executorService.helloFuture(getRunnable("The"));
+        executorService.helloFuture(getRunnable("Java"));
+        executorService.helloFuture(getRunnable("Thread"));
 
         executorService.shutdown();*/
 
-        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+/*        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.schedule(getRunnable("Hello"), 3, TimeUnit.SECONDS);
-        executorService.scheduleAtFixedRate(getRunnable("World"),1, 2, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(getRunnable("World"),1, 2, TimeUnit.SECONDS);*/
 
-//        executorService.shutdown();
+        // 16. Callable과 Future
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+        Callable<String> hello = () -> {
+            Thread.sleep(2000L);
+            return "hello";
+        };
+
+        Callable<String> java = () -> {
+            Thread.sleep(3000L);
+            return "java";
+        };
+
+        Callable<String> jinwoo = () -> {
+            Thread.sleep(1000L);
+            return "jinwoo";
+        };
+
+/*        Future<String> helloFuture = executorService.submit(hello);
+        System.out.println(helloFuture.isDone());
+        System.out.println("Started!");
+
+//        helloFuture.get();
+        helloFuture.cancel(false);
+
+        System.out.println(helloFuture.isDone());
+
+        System.out.println("End!!");*/
+
+/*        List<Future<String>> futures = executorService.invokeAll(Arrays.asList(hello, java, jinwoo));
+        for (Future<String> f: futures) {
+            System.out.println(f.get());
+        }*/
+        String s = executorService.invokeAny(Arrays.asList(hello, java, jinwoo));
+        System.out.println(s);
+
+        executorService.shutdown();
+
 
     }
 
