@@ -378,7 +378,7 @@ public class App {
             System.out.println(Thread.currentThread().getName());
             System.out.println(s.toUpperCase());
         });*/
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
+/*        ExecutorService executorService = Executors.newFixedThreadPool(4);
         CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
             System.out.println("Hello " + Thread.currentThread().getName());
             return "Hello";
@@ -388,7 +388,65 @@ public class App {
 
         future.get();
 
-        executorService.shutdown();
+        executorService.shutdown();*/
+
+        // 18. CompletableFuture 2
+        boolean throwFrror = true;
+
+        CompletableFuture<String> hello = CompletableFuture.supplyAsync(() -> {
+            if (throwFrror) {
+                throw new IllegalArgumentException();
+            }
+
+            System.out.println("Hello " + Thread.currentThread().getName());
+            return "Hello";
+        }).handle((result, ex) -> {
+           if (ex != null) {
+               System.out.println(ex);
+               return "Error!";
+           }
+           return result;
+        });
+        /*.exceptionally(ex -> {
+                    System.out.println(ex);
+                    return "Error!";
+        });*/
+
+        CompletableFuture<String> future = hello.thenCompose(App::getWorld);
+        System.out.println(future.get());
+
+        CompletableFuture<String> world = CompletableFuture.supplyAsync(() -> {
+            System.out.println("World " + Thread.currentThread().getName());
+            return "World";
+        });
+
+        CompletableFuture<String> future1 = hello.thenCombine(world, (h, w) -> h + " " + w);
+        System.out.println(future1.get());
+
+        List<CompletableFuture<String>> futures = Arrays.asList(hello, world);
+        CompletableFuture[] futuresArray = futures.toArray(new CompletableFuture[futures.size()]);
+
+        CompletableFuture<List<String>> results = CompletableFuture.allOf(futuresArray)
+                .thenApply(v -> futures.stream()
+                        .map(CompletableFuture::join)
+                        .collect(Collectors.toList()));
+
+        results.get().forEach(System.out::println);
+        System.out.println();
+
+        CompletableFuture<Void> future3 = CompletableFuture.anyOf(hello, world).thenAccept((s) -> System.out.println(s));
+        future3.get();
+
+
+
+
+    }
+
+    private static CompletableFuture<String> getWorld(String message) {
+        return CompletableFuture.supplyAsync(() -> {
+            System.out.println("World " + Thread.currentThread().getName());
+            return message + " World";
+        });
     }
 
     private static Runnable getRunnable(String message) {
