@@ -1,5 +1,7 @@
 package com.swat018.java8to11;
 
+import org.apache.tomcat.util.net.jsse.JSSEUtil;
+
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -10,6 +12,8 @@ import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Chicken("양념")
+@Chicken("마늘간장")
 public class App {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
@@ -391,7 +395,7 @@ public class App {
         executorService.shutdown();*/
 
         // 18. CompletableFuture 2
-        boolean throwFrror = true;
+    /*    boolean throwFrror = true;
 
         CompletableFuture<String> hello = CompletableFuture.supplyAsync(() -> {
             if (throwFrror) {
@@ -407,10 +411,10 @@ public class App {
            }
            return result;
         });
-        /*.exceptionally(ex -> {
+        *//*.exceptionally(ex -> {
                     System.out.println(ex);
                     return "Error!";
-        });*/
+        });*//*
 
         CompletableFuture<String> future = hello.thenCompose(App::getWorld);
         System.out.println(future.get());
@@ -435,12 +439,26 @@ public class App {
         System.out.println();
 
         CompletableFuture<Void> future3 = CompletableFuture.anyOf(hello, world).thenAccept((s) -> System.out.println(s));
-        future3.get();
+        future3.get();*/
 
-
-
+        // 19. 애노테이션의 변화
+//        List<@Chicken String> names = Arrays.asList("jinwoo");
+/*        Chicken[] chickens = App.class.getAnnotationsByType(Chicken.class);
+        Arrays.stream(chickens).forEach(c -> {
+            System.out.println(c.value());
+        });*/
+        ChickenContainer chickenContainer = App.class.getAnnotation(ChickenContainer.class);
+        Arrays.stream(chickenContainer.value()).forEach(c-> {
+            System.out.println(c.value());
+        });
 
     }
+
+/*    static class FeelsLikeChicken<@Chicken T> {
+        public static <@Chicken C> void print(C c) {
+            System.out.println(c);
+        }
+    }*/
 
     private static CompletableFuture<String> getWorld(String message) {
         return CompletableFuture.supplyAsync(() -> {
