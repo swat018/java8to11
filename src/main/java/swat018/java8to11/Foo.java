@@ -35,6 +35,9 @@ public class Foo {
         BiFunction<Integer, Integer, Integer> sum = (a, b) -> a + b;
         System.out.println(sum.apply(1,2));
 
+        BinaryOperator<Integer> sum1 = (a, b) -> a + b;
+        System.out.println(sum1.apply(2, 4));
+
         Foo foo = new Foo();
         foo.run();
 
