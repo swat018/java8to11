@@ -11,25 +11,33 @@ public class App {
     public static void main(String[] args) {
 //        UnaryOperator<String> hi = (s) -> "hi " + s;
 
-        Greeting greeting = new Greeting();
+//        Greeting greeting = new Greeting();
+//
+//        UnaryOperator<String> hi = Greeting::hi;
+//        UnaryOperator<String> hello= greeting::hello;
+//        System.out.println(hello.apply("jinwoo"));
+//
+//        Supplier<Greeting> newGreeting = Greeting::new;
+//        newGreeting.get();
+//
+//        Function<String, Greeting> jinwooGreeting = Greeting::new;
+//        Greeting jinwoo = jinwooGreeting.apply("jinwoo");
+//        System.out.println(jinwoo.getName());
+//
+//
+//        String[] names = {"jinwoo", "swat018", "keesun"};
+//
+//        Arrays.sort(names, (o1, o2) -> 0);
+//        Arrays.sort(names, String::compareToIgnoreCase);
+//        System.out.println(Arrays.toString(names));
 
-        UnaryOperator<String> hi = Greeting::hi;
-        UnaryOperator<String> hello= greeting::hello;
-        System.out.println(hello.apply("jinwoo"));
-
-        Supplier<Greeting> newGreeting = Greeting::new;
-        newGreeting.get();
-
-        Function<String, Greeting> jinwooGreeting = Greeting::new;
-        Greeting jinwoo = jinwooGreeting.apply("jinwoo");
-        System.out.println(jinwoo.getName());
+        FooInterface foo = new DefaultFoo("jinwoo");
+        foo.printName();
+        foo.printNameUpperCase();
 
 
-        String[] names = {"jinwoo", "swat018", "keesun"};
+        FooInterface.printAnything();
 
-        Arrays.sort(names, (o1, o2) -> 0);
-        Arrays.sort(names, String::compareToIgnoreCase);
-        System.out.println(Arrays.toString(names));
 
     }
 }
