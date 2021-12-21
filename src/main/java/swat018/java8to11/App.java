@@ -1,7 +1,6 @@
 package swat018.java8to11;
 
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
@@ -31,12 +30,54 @@ public class App {
 //        Arrays.sort(names, String::compareToIgnoreCase);
 //        System.out.println(Arrays.toString(names));
 
-        FooInterface foo = new DefaultFoo("jinwoo");
-        foo.printName();
-        foo.printNameUpperCase();
+//        FooInterface foo = new DefaultFoo("jinwoo");
+//        foo.printName();
+//        foo.printNameUpperCase();
+//
+//
+//        FooInterface.printAnything();
+
+        List<String> name = new ArrayList<>();
+        name.add("jinwoo");
+        name.add("seojin");
+        name.add("hyebin");
+        name.add("taeyang");
+        name.add("hyunji");
+
+//        forEach()
+//        name.forEach(s -> {
+//            System.out.println(s);
+//        });
+//        name.forEach(System.out::println);
+
+//        for (String n : name) {
+//            System.out.println(n);
+//        }
+
+//        spliterator()
+//        Spliterator<String> spliterator = name.spliterator();
+//        Spliterator<String> spliterator1= spliterator.trySplit();
+//        while (spliterator.tryAdvance(System.out::println));
+//        System.out.println(" ====================== ");
+//        while (spliterator1.tryAdvance(System.out::println));
+
+//        stream()
+//        long k = name.stream().map(String::toUpperCase)
+//                .filter(s -> s.startsWith("J"))
+//                .count();
+//        System.out.println(k);
+
+//        removeIf
+//        name.removeIf(s -> s.startsWith("j"));
+//        name.forEach(System.out::println);
+
+//        name.sort(String::compareToIgnoreCase);
+        Comparator<String> compareToIgnoreCase = String::compareToIgnoreCase;;
+        name.sort(compareToIgnoreCase.reversed());
+        name.forEach(System.out::println);
 
 
-        FooInterface.printAnything();
+
 
 
     }
