@@ -4,6 +4,9 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class App {
 
@@ -37,12 +40,12 @@ public class App {
 //
 //        FooInterface.printAnything();
 
-        List<String> name = new ArrayList<>();
-        name.add("jinwoo");
-        name.add("seojin");
-        name.add("hyebin");
-        name.add("taeyang");
-        name.add("hyunji");
+//        List<String> name = new ArrayList<>();
+//        name.add("jinwoo");
+//        name.add("seojin");
+//        name.add("hyebin");
+//        name.add("taeyang");
+//        name.add("hyunji");
 
 //        forEach()
 //        name.forEach(s -> {
@@ -72,12 +75,34 @@ public class App {
 //        name.forEach(System.out::println);
 
 //        name.sort(String::compareToIgnoreCase);
-        Comparator<String> compareToIgnoreCase = String::compareToIgnoreCase;;
-        name.sort(compareToIgnoreCase.reversed());
-        name.forEach(System.out::println);
+//        Comparator<String> compareToIgnoreCase = String::compareToIgnoreCase;;
+//        name.sort(compareToIgnoreCase.reversed());
+//        name.forEach(System.out::println);
 
+        List<String> names = new ArrayList<>();
+        names.add("jinwoo");
+        names.add("seojin");
+        names.add("hyebin");
+        names.add("taeyang");
+        names.add("hyunji");
 
+        Stream<String> stringStream = names.stream().map(String::toUpperCase);
 
+        List<String> collect = names.stream().map((s) -> {
+            System.out.println(s);
+            return s.toUpperCase();
+        }).collect(Collectors.toList());
+        collect.forEach(System.out::println);
+
+        System.out.println("==============");
+
+        names.forEach(System.out::println);
+
+        List<String> collect1 = names.parallelStream().map((s) -> {
+            System.out.println(s + " " + Thread.currentThread().getName());
+            return s.toUpperCase();
+        }).collect(Collectors.toList());
+        collect1.forEach(System.out::println);
 
 
     }
