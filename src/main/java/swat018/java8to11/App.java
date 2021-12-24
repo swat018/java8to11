@@ -158,10 +158,47 @@ public class App {
 //                .collect(Collectors.toList());
 //        spring.forEach(System.out::println);
 
-        OnlineClass spring_boot = new OnlineClass(1, "spring boot", true);
-        Optional<Progress> progress = spring_boot.getProgress();
-        progress.ifPresent(p -> System.out.println(p.getStudyDuration()));
+//        OnlineClass spring_boot = new OnlineClass(1, "spring boot", true);
+//        Optional<Progress> progress = spring_boot.getProgress();
+//        progress.ifPresent(p -> System.out.println(p.getStudyDuration()));
 
 //        OptionalInt(10);
+
+        Optional<OnlineClass> optional = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("spring"))
+                .findFirst();
+
+//        boolean present = optional.isPresent();
+//        System.out.println(!present);
+
+//        OnlineClass onlineClass = optional.get();
+//        System.out.println(onlineClass.getTitle());
+
+//        optional.ifPresent(oc -> System.out.println(oc.getTitle()));
+//        OnlineClass onlineClass = optional.orElse(createNewClass());
+//        System.out.println(onlineClass.getTitle());
+
+//        OnlineClass onlineClass = optional.orElseGet(App::createNewClass);
+//        System.out.println(onlineClass.getTitle());
+
+//        OnlineClass onlineClass = optional.orElseThrow(IllegalStateException::new);
+//        System.out.println(onlineClass.getTitle());
+//
+//        Optional<OnlineClass> onlineClass = optional.filter(oc -> !oc.isClosed());
+//        System.out.println(onlineClass.isPresent());
+
+        Optional<Integer> integer = optional.map(OnlineClass::getId);
+        System.out.println(integer.isPresent());
+
+        Optional<Progress> progress = optional.flatMap((OnlineClass::getProgress));
+
+        Optional<Optional<Progress>> progress1 = optional.map(OnlineClass::getProgress);
+        Optional<Progress> progress2 = progress1.orElse(Optional.empty());
+
+    }
+
+    private static OnlineClass createNewClass() {
+        System.out.println("creating new online class");
+        return new OnlineClass(10, "New class", false);
     }
 }
