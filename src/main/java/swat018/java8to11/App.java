@@ -1,5 +1,6 @@
 package swat018.java8to11;
 
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
 import java.util.function.Function;
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
 
 public class App {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 //        UnaryOperator<String> hi = (s) -> "hi " + s;
 
 //        Greeting greeting = new Greeting();
@@ -106,12 +107,12 @@ public class App {
 //        }).collect(Collectors.toList());
 //        collect1.forEach(System.out::println);
 
-        List<OnlineClass> springClasses = new ArrayList<>();
-        springClasses.add(new OnlineClass(1, "spring boot", true));
-        springClasses.add(new OnlineClass(2, "spring data jpa", true));
-        springClasses.add(new OnlineClass(3, "spring mvc", false));
-        springClasses.add(new OnlineClass(4, "spring core", false));
-        springClasses.add(new OnlineClass(5, "rest api development", false));
+//        List<OnlineClass> springClasses = new ArrayList<>();
+//        springClasses.add(new OnlineClass(1, "spring boot", true));
+//        springClasses.add(new OnlineClass(2, "spring data jpa", true));
+//        springClasses.add(new OnlineClass(3, "spring mvc", false));
+//        springClasses.add(new OnlineClass(4, "spring core", false));
+//        springClasses.add(new OnlineClass(5, "rest api development", false));
 
 //        System.out.println("spring 으로 시작하는 수업");
 //        springClasses.stream()
@@ -164,9 +165,9 @@ public class App {
 
 //        OptionalInt(10);
 
-        Optional<OnlineClass> optional = springClasses.stream()
-                .filter(oc -> oc.getTitle().startsWith("spring"))
-                .findFirst();
+//        Optional<OnlineClass> optional = springClasses.stream()
+//                .filter(oc -> oc.getTitle().startsWith("spring"))
+//                .findFirst();
 
 //        boolean present = optional.isPresent();
 //        System.out.println(!present);
@@ -187,18 +188,28 @@ public class App {
 //        Optional<OnlineClass> onlineClass = optional.filter(oc -> !oc.isClosed());
 //        System.out.println(onlineClass.isPresent());
 
-        Optional<Integer> integer = optional.map(OnlineClass::getId);
-        System.out.println(integer.isPresent());
+        Date date = new Date();
+        long time = date.getTime();
+        System.out.println(date);
+        System.out.println(time);
 
-        Optional<Progress> progress = optional.flatMap((OnlineClass::getProgress));
+        Thread.sleep(1000 * 3);
+        Date after3Seconds = new Date();
+        System.out.println(after3Seconds);
+        after3Seconds.setTime(time);
+        System.out.println(after3Seconds);
 
-        Optional<Optional<Progress>> progress1 = optional.map(OnlineClass::getProgress);
-        Optional<Progress> progress2 = progress1.orElse(Optional.empty());
+        Calendar jinwooBirthDay = new GregorianCalendar(1984, Calendar.MAY, 18);
+        System.out.println(jinwooBirthDay.getTime());
+        jinwooBirthDay.add(Calendar.DAY_OF_YEAR, 1);
+        System.out.println(jinwooBirthDay.getTime());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat();
 
     }
 
-    private static OnlineClass createNewClass() {
-        System.out.println("creating new online class");
-        return new OnlineClass(10, "New class", false);
-    }
+//    private static OnlineClass createNewClass() {
+//        System.out.println("creating new online class");
+//        return new OnlineClass(10, "New class", false);
+//    }
 }
