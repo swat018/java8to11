@@ -1,7 +1,10 @@
 package swat018.java8to11;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -188,24 +191,77 @@ public class App {
 //        Optional<OnlineClass> onlineClass = optional.filter(oc -> !oc.isClosed());
 //        System.out.println(onlineClass.isPresent());
 
+//        Date date = new Date();
+//        long time = date.getTime();
+//        System.out.println(date);
+//        System.out.println(time);
+//
+//        Thread.sleep(1000 * 3);
+//        Date after3Seconds = new Date();
+//        System.out.println(after3Seconds);
+//        after3Seconds.setTime(time);
+//        System.out.println(after3Seconds);
+//
+//        Calendar jinwooBirthDay = new GregorianCalendar(1984, Calendar.MAY, 18);
+//        System.out.println(jinwooBirthDay.getTime());
+//        jinwooBirthDay.add(Calendar.DAY_OF_YEAR, 1);
+//        System.out.println(jinwooBirthDay.getTime());
+//
+//        SimpleDateFormat dateFormat = new SimpleDateFormat();
+
+        Instant intant = Instant.now();
+        System.out.println(intant); // 기준시 UTC, GMT
+        System.out.println(intant.atZone(ZoneId.of("UTC"))); // 기준시 UTC, GMT
+
+        ZoneId zone = ZoneId.systemDefault();
+        System.out.println(zone);
+        ZonedDateTime zonedDateTime = intant.atZone(ZoneId.systemDefault());
+        System.out.println(zonedDateTime);
+
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(now);
+        LocalDateTime birthDay = LocalDateTime.of(1984, Month.MAY, 18, 0, 0, 0);
+        ZonedDateTime nowInLA = ZonedDateTime.now(ZoneId.of("America/Los_Angeles"));
+        System.out.println(nowInLA);
+
+        Instant nowInstant = Instant.now();
+        ZonedDateTime zonedDateTime1 = nowInstant.atZone(ZoneId.of("America/Los_Angeles"));
+        System.out.println(zonedDateTime1);
+
+        LocalDate today = LocalDate.now();
+        LocalDate thisYearBirthday = LocalDate.of(2021, Month.DECEMBER, 31);
+
+        Period period = Period.between(today, thisYearBirthday);
+        System.out.println(period.getDays());
+        Period until = today.until(thisYearBirthday);
+        System.out.println(until.get(ChronoUnit.DAYS));
+
+        Instant now1 = Instant.now();
+        Instant plus = now1.plus(10, ChronoUnit.SECONDS);
+        Duration between = Duration.between(now1, plus);
+        System.out.println(between.getSeconds());
+
+        LocalDateTime dateTime = LocalDateTime.now();
+
+        DateTimeFormatter MMddyyyy = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        System.out.println(dateTime.format(MMddyyyy));
+
+        LocalDate parse = LocalDate.parse("05/18/1984", MMddyyyy);
+        System.out.println(parse);
+
         Date date = new Date();
-        long time = date.getTime();
-        System.out.println(date);
-        System.out.println(time);
+        Instant instant = date.toInstant();
+        Date newDate = Date.from(instant);
 
-        Thread.sleep(1000 * 3);
-        Date after3Seconds = new Date();
-        System.out.println(after3Seconds);
-        after3Seconds.setTime(time);
-        System.out.println(after3Seconds);
+        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+        ZonedDateTime dateTime1 = gregorianCalendar.toInstant().atZone(ZoneId.systemDefault());
+        GregorianCalendar.from(dateTime1);
 
-        Calendar jinwooBirthDay = new GregorianCalendar(1984, Calendar.MAY, 18);
-        System.out.println(jinwooBirthDay.getTime());
-        jinwooBirthDay.add(Calendar.DAY_OF_YEAR, 1);
-        System.out.println(jinwooBirthDay.getTime());
+        ZoneId zoneId = TimeZone.getTimeZone("PST").toZoneId();
+        TimeZone timeZone = TimeZone.getTimeZone(zoneId);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat();
-
+        LocalDateTime now2 = LocalDateTime.now();
+        LocalDateTime plus1 = now2.plus(10, ChronoUnit.DAYS);
     }
 
 //    private static OnlineClass createNewClass() {
