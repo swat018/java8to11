@@ -6,10 +6,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -20,7 +17,7 @@ import java.util.stream.Stream;
 
 public class App {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
 //        UnaryOperator<String> hi = (s) -> "hi " + s;
 
 //        Greeting greeting = new Greeting();
@@ -302,6 +299,7 @@ public class App {
 //        thread.join();
 //        System.out.println(thread + " is finished");
 
+
 //        ExecutorService executorService = Executors.newSingleThreadExecutor();
 //        executorService.submit(() -> {
 //            System.out.println("Thread " + Thread.currentThread().getName());
@@ -314,11 +312,55 @@ public class App {
 //        executorService.submit(getRunnable("Java"));
 //        executorService.submit(getRunnable("Thread"));
 
-        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleAtFixedRate(getRunnable("Hello"),1, 2, TimeUnit.SECONDS);
+//        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+//        executorService.scheduleAtFixedRate(getRunnable("Hello"),1, 2, TimeUnit.SECONDS);
 
 //        executorService.shutdown();
 //        executorService.shutdownNow();
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
+//        Callable<String> hello = () -> {
+//          Thread.sleep(2000L);
+//          return "hello";
+//        };
+//
+//        Future<String> helloFurue = executorService.submit(hello);
+//        System.out.println(helloFurue.isDone());
+//        System.out.println("Started!");
+//
+////        helloFurue.get();
+//        helloFurue.cancel(false);
+//
+//        System.out.println(helloFurue.isDone());
+//
+//
+//        System.out.println("End!!");
+
+        Callable<String> hello = () -> {
+          Thread.sleep(2000L);
+          return "hello";
+        };
+
+        Callable<String> java = () -> {
+          Thread.sleep(3000L);
+          return "java";
+        };
+
+        Callable<String> jinwoo = () -> {
+          Thread.sleep(1000L);
+          return "jinwoo";
+        };
+
+//        List<Future<String>> futures = executorService.invokeAll(Arrays.asList(hello, java, jinwoo));
+//        for (Future<String> f : futures) {
+//            System.out.println(f.get());
+//        }
+
+        String s = executorService.invokeAny(Arrays.asList(hello, java, jinwoo));
+        System.out.println(s);
+
+        executorService.shutdown();
     }
 
     private static Runnable getRunnable(String message) {
