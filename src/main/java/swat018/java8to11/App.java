@@ -209,60 +209,102 @@ public class App {
 //
 //        SimpleDateFormat dateFormat = new SimpleDateFormat();
 
-        Instant intant = Instant.now();
-        System.out.println(intant); // 기준시 UTC, GMT
-        System.out.println(intant.atZone(ZoneId.of("UTC"))); // 기준시 UTC, GMT
+//        Instant intant = Instant.now();
+//        System.out.println(intant); // 기준시 UTC, GMT
+//        System.out.println(intant.atZone(ZoneId.of("UTC"))); // 기준시 UTC, GMT
+//
+//        ZoneId zone = ZoneId.systemDefault();
+//        System.out.println(zone);
+//        ZonedDateTime zonedDateTime = intant.atZone(ZoneId.systemDefault());
+//        System.out.println(zonedDateTime);
+//
+//        LocalDateTime now = LocalDateTime.now();
+//        System.out.println(now);
+//        LocalDateTime birthDay = LocalDateTime.of(1984, Month.MAY, 18, 0, 0, 0);
+//        ZonedDateTime nowInLA = ZonedDateTime.now(ZoneId.of("America/Los_Angeles"));
+//        System.out.println(nowInLA);
+//
+//        Instant nowInstant = Instant.now();
+//        ZonedDateTime zonedDateTime1 = nowInstant.atZone(ZoneId.of("America/Los_Angeles"));
+//        System.out.println(zonedDateTime1);
+//
+//        LocalDate today = LocalDate.now();
+//        LocalDate thisYearBirthday = LocalDate.of(2021, Month.DECEMBER, 31);
+//
+//        Period period = Period.between(today, thisYearBirthday);
+//        System.out.println(period.getDays());
+//        Period until = today.until(thisYearBirthday);
+//        System.out.println(until.get(ChronoUnit.DAYS));
+//
+//        Instant now1 = Instant.now();
+//        Instant plus = now1.plus(10, ChronoUnit.SECONDS);
+//        Duration between = Duration.between(now1, plus);
+//        System.out.println(between.getSeconds());
+//
+//        LocalDateTime dateTime = LocalDateTime.now();
+//
+//        DateTimeFormatter MMddyyyy = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+//        System.out.println(dateTime.format(MMddyyyy));
+//
+//        LocalDate parse = LocalDate.parse("05/18/1984", MMddyyyy);
+//        System.out.println(parse);
+//
+//        Date date = new Date();
+//        Instant instant = date.toInstant();
+//        Date newDate = Date.from(instant);
+//
+//        GregorianCalendar gregorianCalendar = new GregorianCalendar();
+//        ZonedDateTime dateTime1 = gregorianCalendar.toInstant().atZone(ZoneId.systemDefault());
+//        GregorianCalendar.from(dateTime1);
+//
+//        ZoneId zoneId = TimeZone.getTimeZone("PST").toZoneId();
+//        TimeZone timeZone = TimeZone.getTimeZone(zoneId);
+//
+//        LocalDateTime now2 = LocalDateTime.now();
+//        LocalDateTime plus1 = now2.plus(10, ChronoUnit.DAYS);
 
-        ZoneId zone = ZoneId.systemDefault();
-        System.out.println(zone);
-        ZonedDateTime zonedDateTime = intant.atZone(ZoneId.systemDefault());
-        System.out.println(zonedDateTime);
+//        MyThread myThread = new MyThread();
+//        myThread.start();
+//
 
-        LocalDateTime now = LocalDateTime.now();
-        System.out.println(now);
-        LocalDateTime birthDay = LocalDateTime.of(1984, Month.MAY, 18, 0, 0, 0);
-        ZonedDateTime nowInLA = ZonedDateTime.now(ZoneId.of("America/Los_Angeles"));
-        System.out.println(nowInLA);
 
-        Instant nowInstant = Instant.now();
-        ZonedDateTime zonedDateTime1 = nowInstant.atZone(ZoneId.of("America/Los_Angeles"));
-        System.out.println(zonedDateTime1);
+        Thread thread = new Thread(() -> {
+//            try {
+//                Thread.sleep(1000L);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            while (true) {
+//                System.out.println("Thread: " + Thread.currentThread().getName());
+//                try {
+//                    Thread.sleep(1000L);
+//                } catch (InterruptedException e) {
+////                    System.out.println("exit!");
+////                    return;
+//                    System.out.println("interrupted!");
+//                }
+//            }
+            System.out.println("Thread: " + Thread.currentThread().getName());
+            try {
+                Thread.sleep(3000L);
+            } catch (InterruptedException e) {
+                throw new IllegalStateException();
+            }
+        });
+        thread.start();
 
-        LocalDate today = LocalDate.now();
-        LocalDate thisYearBirthday = LocalDate.of(2021, Month.DECEMBER, 31);
-
-        Period period = Period.between(today, thisYearBirthday);
-        System.out.println(period.getDays());
-        Period until = today.until(thisYearBirthday);
-        System.out.println(until.get(ChronoUnit.DAYS));
-
-        Instant now1 = Instant.now();
-        Instant plus = now1.plus(10, ChronoUnit.SECONDS);
-        Duration between = Duration.between(now1, plus);
-        System.out.println(between.getSeconds());
-
-        LocalDateTime dateTime = LocalDateTime.now();
-
-        DateTimeFormatter MMddyyyy = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        System.out.println(dateTime.format(MMddyyyy));
-
-        LocalDate parse = LocalDate.parse("05/18/1984", MMddyyyy);
-        System.out.println(parse);
-
-        Date date = new Date();
-        Instant instant = date.toInstant();
-        Date newDate = Date.from(instant);
-
-        GregorianCalendar gregorianCalendar = new GregorianCalendar();
-        ZonedDateTime dateTime1 = gregorianCalendar.toInstant().atZone(ZoneId.systemDefault());
-        GregorianCalendar.from(dateTime1);
-
-        ZoneId zoneId = TimeZone.getTimeZone("PST").toZoneId();
-        TimeZone timeZone = TimeZone.getTimeZone(zoneId);
-
-        LocalDateTime now2 = LocalDateTime.now();
-        LocalDateTime plus1 = now2.plus(10, ChronoUnit.DAYS);
+        System.out.println("Hello: " + Thread.currentThread().getName());
+//        Thread.sleep(3000L);
+//        thread.interrupt();
+        thread.join();
+        System.out.println(thread + " is finished");
     }
+        static class MyThread extends Thread {
+            @Override
+            public void run() {
+                System.out.println("Thread: " + Thread.currentThread().getName());
+            }
+        }
 
 //    private static OnlineClass createNewClass() {
 //        System.out.println("creating new online class");
