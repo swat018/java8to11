@@ -6,6 +6,10 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -267,39 +271,61 @@ public class App {
 //        myThread.start();
 //
 
-
-        Thread thread = new Thread(() -> {
+//        Thread thread = new Thread(() -> {
+////            try {
+////                Thread.sleep(1000L);
+////            } catch (InterruptedException e) {
+////                e.printStackTrace();
+////            }
+////            while (true) {
+////                System.out.println("Thread: " + Thread.currentThread().getName());
+////                try {
+////                    Thread.sleep(1000L);
+////                } catch (InterruptedException e) {
+//////                    System.out.println("exit!");
+//////                    return;
+////                    System.out.println("interrupted!");
+////                }
+////            }
+//            System.out.println("Thread: " + Thread.currentThread().getName());
 //            try {
-//                Thread.sleep(1000L);
+//                Thread.sleep(3000L);
 //            } catch (InterruptedException e) {
-//                e.printStackTrace();
+//                throw new IllegalStateException();
 //            }
-//            while (true) {
-//                System.out.println("Thread: " + Thread.currentThread().getName());
-//                try {
-//                    Thread.sleep(1000L);
-//                } catch (InterruptedException e) {
-////                    System.out.println("exit!");
-////                    return;
-//                    System.out.println("interrupted!");
-//                }
-//            }
-            System.out.println("Thread: " + Thread.currentThread().getName());
-            try {
-                Thread.sleep(3000L);
-            } catch (InterruptedException e) {
-                throw new IllegalStateException();
-            }
-        });
-        thread.start();
+//        });
+//        thread.start();
+//
+//        System.out.println("Hello: " + Thread.currentThread().getName());
+////        Thread.sleep(3000L);
+////        thread.interrupt();
+//        thread.join();
+//        System.out.println(thread + " is finished");
 
-        System.out.println("Hello: " + Thread.currentThread().getName());
-//        Thread.sleep(3000L);
-//        thread.interrupt();
-        thread.join();
-        System.out.println(thread + " is finished");
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        executorService.submit(() -> {
+//            System.out.println("Thread " + Thread.currentThread().getName());
+//        });
+
+//        ExecutorService executorService = Executors.newFixedThreadPool(2);
+//        executorService.submit(getRunnable("Helllo"));
+//        executorService.submit(getRunnable("jinwoo"));
+//        executorService.submit(getRunnable("The"));
+//        executorService.submit(getRunnable("Java"));
+//        executorService.submit(getRunnable("Thread"));
+
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.scheduleAtFixedRate(getRunnable("Hello"),1, 2, TimeUnit.SECONDS);
+
+//        executorService.shutdown();
+//        executorService.shutdownNow();
     }
-        static class MyThread extends Thread {
+
+    private static Runnable getRunnable(String message) {
+        return () -> System.out.println(message + Thread.currentThread().getName());
+    }
+
+    static class MyThread extends Thread {
             @Override
             public void run() {
                 System.out.println("Thread: " + Thread.currentThread().getName());
