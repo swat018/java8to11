@@ -1,5 +1,7 @@
 package swat018.java8to11;
 
+import org.apache.catalina.Executor;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -318,7 +320,7 @@ public class App {
 //        executorService.shutdown();
 //        executorService.shutdownNow();
 //        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
+//        ExecutorService executorService = Executors.newFixedThreadPool(3);
 
 //        Callable<String> hello = () -> {
 //          Thread.sleep(2000L);
@@ -337,42 +339,103 @@ public class App {
 //
 //        System.out.println("End!!");
 
-        Callable<String> hello = () -> {
-          Thread.sleep(2000L);
-          return "hello";
-        };
+//        Callable<String> hello = () -> {
+//          Thread.sleep(2000L);
+//          return "hello";
+//        };
+//
+//        Callable<String> java = () -> {
+//          Thread.sleep(3000L);
+//          return "java";
+//        };
+//
+//        Callable<String> jinwoo = () -> {
+//          Thread.sleep(1000L);
+//          return "jinwoo";
+//        };
+//
+////        List<Future<String>> futures = executorService.invokeAll(Arrays.asList(hello, java, jinwoo));
+////        for (Future<String> f : futures) {
+////            System.out.println(f.get());
+////        }
+//
+//        String s = executorService.invokeAny(Arrays.asList(hello, java, jinwoo));
+//        System.out.println(s);
+//
+//        executorService.shutdown();
 
-        Callable<String> java = () -> {
-          Thread.sleep(3000L);
-          return "java";
-        };
+//        ExecutorService executorService = Executors.newFixedThreadPool(4);
+//        Future<String> future = executorService.submit(() -> "hello");
+//
+//        // TODO
+//
+//        future.get();
 
-        Callable<String> jinwoo = () -> {
-          Thread.sleep(1000L);
-          return "jinwoo";
-        };
+//        CompletableFuture<Object> future = new CompletableFuture<>();
+//        future.complete("jinwoo");
 
-//        List<Future<String>> futures = executorService.invokeAll(Arrays.asList(hello, java, jinwoo));
-//        for (Future<String> f : futures) {
-//            System.out.println(f.get());
-//        }
+//        CompletableFuture<Object> future = CompletableFuture.completedFuture("jinwoo");
+//        System.out.println(future.get());
 
-        String s = executorService.invokeAny(Arrays.asList(hello, java, jinwoo));
-        System.out.println(s);
+//        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+//            System.out.println("Hello " + Thread.currentThread().getName());
+//        });
+//        future.get();
+
+//        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("Hello " + Thread.currentThread().getName());
+//            return "Hello";
+//        });//
+
+//        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("Hello " + Thread.currentThread().getName());
+//            return "Hello";
+//        }).thenApply((s) -> {
+//            System.out.println(Thread.currentThread().getName());
+//            return s.toUpperCase();
+//        });
+//
+//        CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("Hello " + Thread.currentThread().getName());
+//            return "Hello";
+//        }).thenAccept((s) -> {
+//            System.out.println(Thread.currentThread().getName());
+//            System.out.println(s.toUpperCase());
+//        });
+
+//        CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
+//            System.out.println("Hello " + Thread.currentThread().getName());
+//            return "Hello";
+//        }).thenRun(() -> {
+//            System.out.println(Thread.currentThread().getName());
+//        });
+//        System.out.println(future.get());
+
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+        CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
+            System.out.println("Hello " + Thread.currentThread().getName());
+        1    return "Hello";
+        }, executorService).thenRunAsync(() -> {
+            System.out.println(Thread.currentThread().getName());
+        }, executorService);
+
+        future.get();
 
         executorService.shutdown();
+
     }
 
-    private static Runnable getRunnable(String message) {
-        return () -> System.out.println(message + Thread.currentThread().getName());
-    }
-
-    static class MyThread extends Thread {
-            @Override
-            public void run() {
-                System.out.println("Thread: " + Thread.currentThread().getName());
-            }
-        }
+//    private static Runnable getRunnable(String message) {
+//        return () -> System.out.println(message + Thread.currentThread().getName());
+//    }
+//
+//    static class MyThread extends Thread {
+//            @Override
+//            public void run() {
+//                System.out.println("Thread: " + Thread.currentThread().getName());
+//            }
+//        }
 
 //    private static OnlineClass createNewClass() {
 //        System.out.println("creating new online class");
