@@ -415,7 +415,7 @@ public class App {
 
         CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
             System.out.println("Hello " + Thread.currentThread().getName());
-        1    return "Hello";
+            return "Hello";
         }, executorService).thenRunAsync(() -> {
             System.out.println(Thread.currentThread().getName());
         }, executorService);
