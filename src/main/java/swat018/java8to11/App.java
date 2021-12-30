@@ -15,10 +15,11 @@ import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-@Chicken("양념")
-@Chicken("마늘간장")
+//@Chicken("양념")
+//@Chicken("마늘간장")
 public class App {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
@@ -503,10 +504,24 @@ public class App {
 //            System.out.println(c.value());
 //        });
 
-        ChickenContainer chickenContainer = App.class.getAnnotation(ChickenContainer.class);
-        Arrays.stream(chickenContainer.value()).forEach(c -> {
-            System.out.println(c.value());
-        });
+//        ChickenContainer chickenContainer = App.class.getAnnotation(ChickenContainer.class);
+//        Arrays.stream(chickenContainer.value()).forEach(c -> {
+//            System.out.println(c.value());
+//        });
+        int size = 1500;
+        int[] numbers = new int[size];
+        Random random = new Random();
+        IntStream.range(0, size).forEach(i -> numbers[i] = random.nextInt());
+
+        long start = System.nanoTime();
+        Arrays.sort(numbers);
+        System.out.println("serial sorting took " + (System.nanoTime() - start));
+
+        IntStream.range(0, size).forEach(i -> numbers[i] = random.nextInt());
+        start = System.nanoTime();
+        Arrays.parallelSort(numbers);
+        System.out.println("parallel sorting took " + (System.nanoTime() - start));
+
 
     }
 //    static class FeelsLikeChichen<@Chicken T> {
